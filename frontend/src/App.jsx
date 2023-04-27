@@ -14,7 +14,7 @@ import NoteFormPage from "./pages/components/NoteFormPage";
 import IndexNotePage from "./pages/IndexNotePage";
 
 //axios.defaults.baseURL = "http://127.0.0.1:4000/backend"
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true; //withCredentials: true will send cookies to the memory.
 
 function App() {
