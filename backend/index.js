@@ -19,6 +19,7 @@ app.use(
 );
 
 app.get('/backend/test', (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
   res.json('test ok');
 });
 
