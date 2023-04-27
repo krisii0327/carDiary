@@ -24,7 +24,7 @@ app.use(
 //app.use('/', require('./routes/accountRoutes'));
 //app.use('/', require('./routes/noteRoutes'));
 
-app.get('/api/test', (req, res) => {
+app.get('/test', (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   res.json('test ok');
 });
