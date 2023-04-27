@@ -19,6 +19,10 @@ app.use(
   })
 );
 
+app.get('/backend/test', (req, res) => {
+  res.json('test ok');
+});
+
 app.use('/', require('./routes/userRoutes'));
 app.use('/', require('./routes/accountRoutes'));
 app.use('/', require('./routes/noteRoutes'));
