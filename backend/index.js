@@ -20,9 +20,9 @@ app.use(
   })
 );
 
-app.use('/', require('./routes/userRoutes'));
-app.use('/', require('./routes/accountRoutes'));
-app.use('/', require('./routes/noteRoutes'));
+//app.use('/', require('./routes/userRoutes'));
+//app.use('/', require('./routes/accountRoutes'));
+//app.use('/', require('./routes/noteRoutes'));
 
 app.get('/api/test', (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
