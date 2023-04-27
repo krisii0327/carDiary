@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
+require('dotenv').config();
 const app = express();
 
 app.use(express.json()); //ez miatt a sor miatt tudtunk a json-t feldolgozni
