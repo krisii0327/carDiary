@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 app.use(express.json()); //ez miatt a sor miatt tudtunk a json-t feldolgozni
-app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 //middleware
