@@ -1,4 +1,4 @@
 .idea
-backend/node_modules
-backend/.env
-backend/uploads/*
+api/node_modules
+api/.env
+api/uploads/*
