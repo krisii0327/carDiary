@@ -1,8 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
 const cookieParser = require('cookie-parser');
+
+const multer = require('multer');
 
 require('dotenv').config();
 const app = express();
