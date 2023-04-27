@@ -4,13 +4,10 @@ const {
   registerUser,
   loginUser,
   profileUser,
-  test,
 } = require('../controllers/userController');
 
-router.route('/backend/register').post(registerUser);
-router.route('/backend/login').post(loginUser);
-router.route('/backend/profile').get(profileUser);
-
-router.route('/backend/test').get(test);
+router.route('/api/register').post(registerUser);
+router.route('/api/login').post(loginUser);
+router.route('/api/profile').get(profileUser);
 
 module.exports = router;
