@@ -9,11 +9,11 @@ const {
   deleteNotes,
 } = require('../controllers/noteController');
 
-router.route('/listNotes/:id').get(listNotes);
-router.route('/newNote').post(newNote);
-router.route('/updateNote').put(updateNote);
-router.route('/edit/:note_id').get(editSingleNote);
-router.route('/deleteNote/:note_id').delete(deleteNote);
-router.route('/deleteNotes/:car_id').delete(deleteNotes);
+router.route('/backend/listNotes/:id').get(listNotes);
+router.route('/backend/newNote').post(newNote);
+router.route('/backend/updateNote').put(updateNote);
+router.route('/backend/edit/:note_id').get(editSingleNote);
+router.route('/backend/deleteNote/:note_id').delete(deleteNote);
+router.route('/backend/deleteNotes/:car_id').delete(deleteNotes);
 
 module.exports = router;
