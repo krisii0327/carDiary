@@ -136,7 +136,7 @@ export default function NotePage() {
                     <div className="flex flex-col p-2 gap-2 rounded-xl bg-gray-100 my-2 shadow-md shadow-gray-400" key={car._id}>
 
                         <div className="flex flex-row gap-2">
-                            <div className="my-auto w-56">{photo.length > 0 && (<Image className="rounded-xl h-28 w-52 object-fit ring-2 ring-white shadow-md shadow-gray-400" src={photo} />)}</div>
+                            <div className="my-auto w-56">{photo.length > 0 && (<Image className="rounded-xl h-24 w-52 md:h-32 md:w-56 object-fit ring-2 ring-white shadow-md shadow-gray-400" src={photo} />)}</div>
                             <div className="gap-2 w-full flex">
                                 <div className="w-full lg:w-1/3 flex flex-col justify-between bg-gray-50 rounded-2xl px-2 py-1 ring-1 ring-gray-200 text-sm md:text-base">
                                     <div className="flex gap-0.5">

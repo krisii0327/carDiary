@@ -40,7 +40,7 @@ export default function GaragePage() {
                   <div className="flex">
                     {car.photos.length > 0 && (
                       <Image
-                        className="rounded-2xl h-24 w-48 ring-2 ring-white shadow-md shadow-gray-400"
+                        className="rounded-2xl h-24 w-52 md:h-32 md:w-56 ring-2 ring-white shadow-md shadow-gray-400"
                         src={car.photos[0]}
                       />
                     )}
