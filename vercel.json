@@ -2,5 +2,11 @@
   "buildCommand": "cd frontend && yarn install && ./node_modules/vite/bin/vite.js build",
   "outputDirectory": "frontend/dist",
   "framework": "vite",
-  "routes": [{ "src": "/api/[^.]+", "dest": "/api/" }]
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.js"
+    },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
