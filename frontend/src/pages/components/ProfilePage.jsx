@@ -12,6 +12,8 @@ export default function ProfilePage() {
   const [redirect, setRedirect] = useState(null);
   const { ready, user, setUser } = useContext(UserContext);
   const [password, setPassword] = useState('');
+  const [password1, setPassword1] = useState('');
+  const [password2, setPassword2] = useState('');
 
   if (!ready) {
     return 'Loading...';
@@ -33,7 +35,15 @@ export default function ProfilePage() {
 
   async function newPassword(ev) {
     ev.preventDefault();
-    alert(password);
+    if (!password1 || !password2) {
+      alert('Missing paramaters!');
+    } else {
+      if (password1 == password2) {
+        alert('Correct!');
+      } else {
+        alert('Not correct!');
+      }
+    }
   }
 
   return (
@@ -45,16 +55,24 @@ export default function ProfilePage() {
       <form onSubmit={newPassword}>
         <span>Change password</span>
         <div>
-          <p>Password:</p>
+          <p>Current Password:</p>
           <input
             value={password}
             onChange={(ev) => setPassword(ev.target.value)}
             type="password"
           />
           <p>New password:</p>
-          <input type="password" />
+          <input
+            type="password"
+            value={password1}
+            onChange={(ev) => setPassword1(ev.target.value)}
+          />
           <p>Retype new password:</p>
-          <input type="password" />
+          <input
+            type="password"
+            value={password2}
+            onChange={(ev) => setPassword2(ev.target.value)}
+          />
         </div>
         <button>Test</button>
       </form>

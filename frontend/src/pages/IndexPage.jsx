@@ -5,12 +5,18 @@ import Image from './components/Image';
 
 export default function IndexPage() {
   const [cars, setCars] = useState([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     axios.get('/cars').then((response) => {
       setCars([...response.data]);
+      setReady(true);
     });
   }, []);
+
+  if (!ready) {
+    return 'Workin progress...';
+  }
 
   return (
     <div>
