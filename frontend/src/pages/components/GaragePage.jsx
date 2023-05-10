@@ -11,8 +11,8 @@ export default function GaragePage() {
   useEffect(() => {
     axios.get('/garage').then(({ data }) => {
       setGarage(data);
+      setReady(true);
     });
-    setReady(true);
   }, []);
 
   async function deleteCar(car_id) {

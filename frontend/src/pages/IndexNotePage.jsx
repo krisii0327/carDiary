@@ -18,8 +18,8 @@ export default function IndexNotePage() {
     });
     axios.get('/listNotes/' + id).then(({ data }) => {
       setNotes(data);
+      setReady(true);
     });
-    setReady(true);
   }, []);
 
 
