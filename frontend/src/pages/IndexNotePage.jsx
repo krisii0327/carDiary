@@ -9,21 +9,23 @@ export default function IndexNotePage() {
   const [notes, setNotes] = useState([]);
   const [car, setCar] = useState([]);
   const [photo, setPhoto] = useState('');
-  const [ready, setReady] = useState(false);
+  const [readyGarage, setReadyGarage] = useState(false);
+  const [readyNote, setReadyNote] = useState(false);
 
   useEffect(() => {
     axios.get('/garage/' + id).then(({ data }) => {
       setCar(data);
       setPhoto(data.photos[0]);
+      setReadyGarage(true);
     });
     axios.get('/listNotes/' + id).then(({ data }) => {
       setNotes(data);
-      setReady(true);
+      setReadyNote(true);
     });
   }, []);
 
 
-  if (!ready) {
+  if (!readyGarage && !readyNote) {
     return (
       <div className="text-center mt-10">
         <div role="status">
