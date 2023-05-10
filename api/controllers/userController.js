@@ -25,7 +25,6 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { email, password } = req.body;
-
   try {
     const userDoc = await User.findOne({ email });
     if (userDoc) {
@@ -65,8 +64,34 @@ const profileUser = async (req, res) => {
   }
 };
 
+const profileUserwithPassword = async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const { token } = req.cookies;
+  const { currentpassword, newpassword } = req.body;
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET_KEY, {}, async (err, userData) => {
+      if (err) throw err;
+      const { _id, password } = await User.findById(userData.id);
+      const userDoc = await User.findOne({ _id });
+      if (bcrypt.compareSync(currentpassword, userDoc.password)) {
+        const newPasswordWithHash = bcrypt.hashSync(newpassword, bcryptSalt);
+        userDoc.set({
+          password: newPasswordWithHash,
+        });
+        await userDoc.save();
+        res.json(true);
+      } else {
+        res.json(false);
+      }
+    });
+  } else {
+    res.json('User not found');
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   profileUser,
+  profileUserwithPassword,
 };

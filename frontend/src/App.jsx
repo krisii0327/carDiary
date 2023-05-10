@@ -12,6 +12,7 @@ import CarFormPage from "./pages/components/CarFormPage";
 import NotePage from "./pages/components/NotePage";
 import NoteFormPage from "./pages/components/NoteFormPage";
 import IndexNotePage from "./pages/IndexNotePage";
+import ChangePassword from "./pages/components/ChangePassword";
 
 //axios.defaults.baseURL = "http://127.0.0.1:4000/backend"
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -37,6 +38,8 @@ function App() {
           <Route path="/account/garage/:id/notes" element={<NotePage />} />
 
           <Route path="/account/favourites" element={<FavouritesPage />} />
+
+          <Route path="/account/profile/changepassword" element={<ChangePassword />} />
         </Route>
       </Routes>
     </UserContextProvider>

@@ -11,9 +11,6 @@ export default function ProfilePage() {
 
   const [redirect, setRedirect] = useState(null);
   const { ready, user, setUser } = useContext(UserContext);
-  const [password, setPassword] = useState('');
-  const [password1, setPassword1] = useState('');
-  const [password2, setPassword2] = useState('');
 
   if (!ready) {
     return 'Loading...';
@@ -33,53 +30,34 @@ export default function ProfilePage() {
     setUser(null);
   }
 
-  async function newPassword(ev) {
-    ev.preventDefault();
-    if (!password1 || !password2) {
-      alert('Missing paramaters!');
-    } else {
-      if (password1 == password2) {
-        alert('Correct!');
-      } else {
-        alert('Not correct!');
-      }
-    }
-  }
-
   return (
-    <div className="text-center max-w-md mx-auto md:text-base lg:text-xl">
-      <span>
-        Logged in as {user.name} ({user.email})
-      </span>
-
-      <form onSubmit={newPassword}>
-        <span>Change password</span>
-        <div>
-          <p>Current Password:</p>
-          <input
-            value={password}
-            onChange={(ev) => setPassword(ev.target.value)}
-            type="password"
-          />
-          <p>New password:</p>
-          <input
-            type="password"
-            value={password1}
-            onChange={(ev) => setPassword1(ev.target.value)}
-          />
-          <p>Retype new password:</p>
-          <input
-            type="password"
-            value={password2}
-            onChange={(ev) => setPassword2(ev.target.value)}
-          />
+    <div className='flex flex-col justify-center w-full md:w-11/12 lg:w-9/12 xl:w-7/12 m-auto md:text-xl'>
+      <div className='bg-gray-100 m-2 p-4 md:mx-auto rounded-xl ring-2 ring-gray-200'>
+        <div className='flex justify-center'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
         </div>
-        <button>Test</button>
-      </form>
 
-      <button onClick={logout} className="primary mt-2 max-w-sm">
-        Logout
-      </button>
+        <div className='flex justify-center mt-2'>
+          Logged in as {user.name} ({user.email})
+        </div>
+
+        <div className="flex justify-center mt-10 gap-5">
+          <span>Change password</span>
+          <Link to={'/account/profile/changepassword/'}>
+            <div className="bg-primary text-white rounded-xl px-4">Go to</div>
+          </Link>
+        </div>
+
+        <div className='flex justify-center'>
+          <button onClick={logout} className="bg-primary rounded-xl px-4 text-white w-64 mt-5">
+            Logout
+          </button>
+        </div>
+      </div>
+
+
     </div>
   );
 }
