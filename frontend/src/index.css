@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 input[type="text"],
-input[type="password"],
 input[type="email"],
+input[type="password"],
 input[type="number"],
 input[type="tel"],
 textarea {
-    @apply flex w-full border border-slate-300 bg-white mb-1 py-0.5 px-2 rounded-xl shadow-md shadow-gray-200;
+    @apply flex w-full border border-slate-300 bg-white mb-1 py-0.5 px-2 rounded-xl shadow-md shadow-gray-200
 }
 
 input[type="date"] {
@@ -26,4 +26,8 @@ button {
 button.primary {
     background-color: #353935;
     @apply bg-primary py-1 w-full text-white rounded-2xl;
+}
+
+div.responsive {
+    @apply py-3 px-2 sm:px-5 md:px-10 lg:px-16 xl:px-20
 }

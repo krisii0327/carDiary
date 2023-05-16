@@ -9,6 +9,10 @@ module.exports = {
       colors: {
         primary: '#353935',
       },
+      backgroundImage: {
+        'widescreen': "url('http://localhost:4000/uploads/garagebackground.jpg')",
+        'mobile': "url('http://localhost:4000/uploads/darkbackgroundmobile.jpg')",
+      }
     },
   },
   plugins: [],
