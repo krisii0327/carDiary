@@ -10,10 +10,22 @@ export default function IndexPage() {
 
   useEffect(() => {
     axios.get('/cars').then((response) => {
-      setCars([...response.data, ...response.data, ...response.data, ...response.data]);
+      //setCars([...response.data, ...response.data, ...response.data, ...response.data]);
+      setCars([...response.data]);
       setReady(true);
     });
   }, []);
+
+  async function search(ev) {
+    /*setSearchCars(ev.target.value)
+    var updatedList = [...cars];
+    console.log(updatedList)
+    updatedList = updatedList.filter(cars => cars.nameOfTheCar == searchCars)
+    setCars(updatedList);
+    console.log(updatedList)
+    console.log([...cars])
+    setCars([...cars.filter(cars => cars.nameOfTheCar == searchCars)])*/
+  }
 
   if (!ready) {
     return (
@@ -23,10 +35,12 @@ export default function IndexPage() {
 
   return (
     <div className='responsive'>
-      <div className="flex justify-center">
-        <div className="">
-          Database for the garage
+      <div className="flex justify-around">
+        <div className='flex px-5 py-0.5 bg-gray-50 rounded-xl shadow-md shadow-gray-400 items-center ring-1 ring-gray-400'>Database for the garage</div>
+        <div className='flex'>
+          <input type="text" value={'Search is not working!'} onChange={search} />
         </div>
+
       </div>
       <div className="flex justify-center mx-auto mt-4">
         <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6'>
