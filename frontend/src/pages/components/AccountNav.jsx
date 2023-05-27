@@ -35,7 +35,6 @@ export default function AccountNav() {
                     </Link>
                 </div>
             </div>
-            <div className='border-0 border-b border-gray-300 mb-5'></div>
         </>
 
     )

@@ -35,7 +35,7 @@ export default function IndexPage() {
 
   return (
     <div className='responsive'>
-      <div className="flex justify-around">
+      <div className="flex justify-around hidden">
         <div className='flex px-5 py-0.5 bg-gray-50 rounded-xl shadow-md shadow-gray-400 items-center ring-1 ring-gray-400'>Database for the garage</div>
         <div className='flex'>
           <input type="text" value={'Search is not working!'} onChange={search} />

@@ -34,69 +34,26 @@ export default function GaragePage() {
       <div className="flex flex-col text-sm md:text-base">
         <div className="w-full md:w-11/12 lg:w-9/12 xl:w-7/12 m-auto">
           {garage.length == 0 && (
-            <div className="bg-gray-100 p-2 rounded-2xl shadow-md shadow-gray-400">
-              You haven't got any car in your garage!
-            </div>
+            <div className="bg-gray-100 p-2 rounded-xl shadow-md shadow-gray-400">You haven't got any car in your garage!</div>
           )}
           {garage.length > 0 &&
             garage.map((car) => (
               <div key={car._id}>
-                <Link
-                  to={'/account/garage/' + car._id + '/notes'}
-                  className="flex cursor-pointer gap-2 bg-gray-100 hover:bg-gray-200 hover:ring-2 hover:ring-primary p-2 rounded-2xl shadow-md shadow-gray-400 mb-3 relative"
-                  key={'notes/' + car._id}
-                >
+                <Link to={'/account/garage/' + car._id + '/notes'} className="flex cursor-pointer gap-2 bg-gray-100 hover:bg-gray-200 hover:ring-2 hover:ring-primary p-2 rounded-2xl shadow-md shadow-gray-400 mb-3 relative" key={'notes/' + car._id}>
                   <div className="flex">
                     {car.photos.length > 0 && (
-                      <Image
-                        className="rounded-2xl h-24 w-52 md:h-32 md:w-56 ring-2 ring-white shadow-md shadow-gray-400"
-                        src={car.photos[0]}
-                      />
-                    )}
+                      <Image className="rounded-2xl h-24 w-52 md:h-32 md:w-56 ring-2 ring-white shadow-md shadow-gray-400" src={car.photos[0]} />)}
                   </div>
                   <div className="flex flex-col justify-between w-full overflow-hidden truncate ...">
                     <div className="flex gap-0.5">
                       <div className="flex flex-col justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6 6h.008v.008H6V6z"
-                          />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" /></svg>
                       </div>
-                      <p>
-                        {car.nameOfTheCar} - {car.licensePlate}
-                      </p>
+                      <p>{car.nameOfTheCar} - {car.licensePlate}</p>
                     </div>
                     <div className="flex gap-0.5">
                       <div className="flex flex-col justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-5 h-5"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"
-                          />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" /></svg>
                       </div>
                       <div className="flex gap-1">
                         <p>{car.yearOfTheCar}</p>
