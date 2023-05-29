@@ -19,6 +19,7 @@ export default function CarFormPage() {
 
   useEffect(() => {
     if (!id) {
+      setReady(true)
       return;
     }
     axios.get('/verify/' + id).then((response) => {

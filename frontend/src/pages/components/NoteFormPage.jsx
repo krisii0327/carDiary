@@ -20,7 +20,7 @@ export default function NoteFormPage() {
     let styleClasses = 'ml-1';
 
     useEffect(() => {
-        if (!note_id) { return; }
+        if (!note_id) { setReadyNote(true); return; }
         axios.get('/verify/' + id).then((response) => {
             if (response.data == true) {
                 axios.get('/edit/' + note_id).then(response => {
