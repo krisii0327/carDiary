@@ -1,13 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {
-  listNotes,
-  newNote,
-  updateNote,
-  editSingleNote,
-  deleteNote,
-  deleteNotes,
-} = require('../controllers/noteController');
+const {listNotes, newNote, updateNote, editSingleNote, deleteNote, deleteNotes} = require('../controllers/noteController');
 
 router.route('/api/listNotes/:id').get(listNotes);
 router.route('/api/newNote').post(newNote);

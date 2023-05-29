@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"
+import { Link, Navigate, useParams } from "react-router-dom"
 import AccountNav from "./AccountNav";
 import axios from "axios";
 import { format } from "date-fns";
@@ -13,25 +13,32 @@ export default function NotePage() {
     const [readyNote, setReadyNote] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [listOfPhotos, setListOfPhotos] = useState('');
+    const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        axios.get('/garage/' + id).then(({ data }) => {
-            setCar(data);
-            setListOfPhotos(data.photos);
-            setReadyGarage(true);
-        });
-        axios.get('/listNotes/' + id).then(({ data }) => {
-            setNotes(data);
-            setReadyNote(true);
-        });
+        axios.get('/verify/' + id).then((response) => {
+            if (response.data == true) {
+                axios.get('/garage/' + id).then(({ data }) => {
+                    setCar(data);
+                    setListOfPhotos(data.photos);
+                    setReadyGarage(true);
+                });
+                axios.get('/listNotes/' + id).then(({ data }) => {
+                    setNotes(data);
+                    setReadyNote(true);
+                });
+            } else {
+                setRedirect(true);
+                setReadyNote(true);
+                setReadyGarage(true);
+            }
+        })
     }, []);
 
 
-    if (!readyGarage && !readyNote) {
-        return (
-            <LoadSpinner />
-        )
-    }
+    if (!readyGarage && !readyNote) { return (<LoadSpinner />) }
+
+    if (redirect) { return <Navigate to="/account/garage" />; }
 
     const prevSlide = () => {
         const isFirstSlide = currentIndex === 0;
@@ -147,7 +154,7 @@ export default function NotePage() {
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center">
-                                <Link to={'/'} className="flex gap-1 px-2 py-1 hover:bg-gray-50 hover:rounded-xl hover:shadow-md hover:shadow-gray-400 hover:ring-1 hover:ring-black">
+                                <Link to={'/'} className="flex gap-1 px-2 py-0.5 hover:bg-gray-50 hover:rounded-xl hover:shadow-md hover:shadow-gray-400 hover:ring-1 hover:ring-black">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                     <div className='flex items-center'>Back</div>
                                 </Link>

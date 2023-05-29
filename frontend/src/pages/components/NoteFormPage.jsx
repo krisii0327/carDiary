@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import AccountNav from "./AccountNav";
 import axios from "axios";
 import { format } from "date-fns";
+import LoadSpinner from "./LoadSpinner";
 
 export default function NoteFormPage() {
     const { id, note_id } = useParams();
@@ -14,21 +15,28 @@ export default function NoteFormPage() {
     const [extraInfo, setExtraInfo] = useState('');
     const [timeOfService, setTimeOfService] = useState(Date);
     const [redirect, setRedirect] = useState(false);
+    const [readyNote, setReadyNote] = useState(false);
 
-    let styleClasses = 'mt-2 ml-1 text-sm md:text-xl';
+    let styleClasses = 'ml-1';
 
     useEffect(() => {
-        if (!note_id) {
-            return;
-        }
-        axios.get('/edit/' + note_id).then(response => {
-            const { data } = response;
-            setSubject(data.subject);
-            setTypeOfService(data.typeOfService);
-            setKilometer(data.kilometer);
-            setCostOfService(data.costOfService);
-            setExtraInfo(data.extraInfo);
-            setTimeOfService(format(new Date(data.timeOfService), 'yyyy-MM-dd'));
+        if (!note_id) { return; }
+        axios.get('/verify/' + id).then((response) => {
+            if (response.data == true) {
+                axios.get('/edit/' + note_id).then(response => {
+                    const { data } = response;
+                    setSubject(data.subject);
+                    setTypeOfService(data.typeOfService);
+                    setKilometer(data.kilometer);
+                    setCostOfService(data.costOfService);
+                    setExtraInfo(data.extraInfo);
+                    setTimeOfService(format(new Date(data.timeOfService), 'yyyy-MM-dd'));
+                    setReadyNote(true)
+                })
+            } else {
+                setReadyNote(true)
+                setRedirect(true)
+            }
         })
     }, [note_id])
 
@@ -43,7 +51,6 @@ export default function NoteFormPage() {
     async function saveNote(ev) {
         ev.preventDefault();
         const noteData = { id, subject, typeOfService, kilometer, costOfService, extraInfo, timeOfService };
-
         if (note_id) {
             //update
             const updateNoteData = { note_id, ...noteData }
@@ -56,24 +63,22 @@ export default function NoteFormPage() {
         setRedirect(true);
     }
 
-    if (redirect) {
-        return <Navigate to={'/account/garage/' + id + '/notes'} />;
-    }
+    if (!readyNote) { return (<LoadSpinner />) }
+
+    if (redirect) { return <Navigate to={'/account/garage/' + id + '/notes'} />; }
 
     return (
         <div>
             <AccountNav />
             <div className="flex flex-col items-center">
                 <div className="w-full md:w-11/12 lg:w-9/12 xl:w-7/12 flex justify-end">
-                    <Link to={'/account/garage/' + id + '/notes'} className="flex gap-1 bg-gray-100 px-2 py-1 rounded-2xl shadow-md shadow-gray-400 hover:ring-2 hover:ring-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <Link to={'/account/garage/' + id + '/notes'} className="flex gap-1 px-2 py-1 rounded-xl hover:ring-1 hover:ring-black">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         Back to the car
                     </Link>
                 </div>
 
-                <form className="w-full md:w-11/12 lg:w-9/12 xl:w-7/12 mt-2 p-2 gap-2 rounded-xl bg-gray-100 my-2 shadow-lg shadow-gray-400 ring-2 ring-gray-300" onSubmit={saveNote}>
+                <form className="w-full md:w-11/12 lg:w-9/12 xl:w-7/12 gap-2 rounded-xl px-1" onSubmit={saveNote}>
                     <div className="flex flex-col md:flex-row justify-between">
                         <div className="w-2/3">
                             <p className={styleClasses}>Subject of the service:</p>

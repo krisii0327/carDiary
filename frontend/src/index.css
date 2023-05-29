@@ -25,7 +25,7 @@ button {
 
 button.primary {
     background-color: #353935;
-    @apply bg-primary py-1 w-full text-white rounded-2xl;
+    @apply bg-primary py-1 w-full text-white rounded-xl;
 }
 
 div.responsive {

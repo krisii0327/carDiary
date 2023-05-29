@@ -11,6 +11,21 @@ const accountLogout = async (req, res) => {
   res.cookie('token', '').json(true);
 };
 
+const verifyUserToCar = async (req, res) => {
+  mongoose.connect(process.env.MONGO_URL);
+  const { token } = req.cookies;
+  const { id: car_id } = req.params;
+  jwt.verify(token, process.env.JWT_SECRET_KEY, {}, async (err, userData) => {
+    const { id: user } = userData;
+    const carData = await Car.findById({_id: car_id})
+    if(user == carData.owner) {
+      res.json(true)
+    } else {
+      res.json(false)
+    }
+  });
+}
+
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 async function uploadToS3(path, originalFilename, mimetype) {
   mongoose.connect(process.env.MONGO_URL);
@@ -51,15 +66,7 @@ const car_photoUpload = async (req, res) => {
 const addNewCar = async (req, res) => {
   mongoose.connect(process.env.MONGO_URL);
   const { token } = req.cookies;
-  const {
-    nameOfTheCar,
-    licensePlate,
-    modelOfTheCar,
-    yearOfTheCar,
-    color,
-    description,
-    addedPhotos,
-  } = req.body;
+  const {nameOfTheCar, licensePlate, modelOfTheCar, yearOfTheCar, color, description, addedPhotos} = req.body;
   try {
     jwt.verify(token, process.env.JWT_SECRET_KEY, {}, async (err, userData) => {
       if (err) throw err;
@@ -148,4 +155,5 @@ module.exports = {
   listAllCars,
   getCarDataToForm,
   deleteCar,
+  verifyUserToCar,
 };

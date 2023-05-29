@@ -145,7 +145,7 @@ export default function IndexNotePage() {
               </div>
             </div>
             <div className="flex flex-col justify-center">
-              <Link to={'/'} className="flex gap-1 px-2 py-1 hover:bg-gray-50 hover:rounded-xl hover:shadow-md hover:shadow-gray-400 hover:ring-1 hover:ring-black">
+              <Link to={'/'} className="flex gap-1 px-2 py-0.5 hover:bg-gray-50 hover:rounded-xl hover:shadow-md hover:shadow-gray-400 hover:ring-1 hover:ring-black">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M11.25 9l-3 3m0 0l3 3m-3-3h7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <div className='flex items-center'>Back</div>
               </Link>

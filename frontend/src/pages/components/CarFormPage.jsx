@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import AccountNav from './AccountNav';
 import Image from './Image';
+import LoadSpinner from './LoadSpinner';
 
 export default function CarFormPage() {
   const { id } = useParams();
@@ -14,22 +15,31 @@ export default function CarFormPage() {
   const [description, setDescription] = useState('');
   const [addedPhotos, setAddedPhotos] = useState([]);
   const [redirect, setRedirect] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get('/garage/' + id).then((response) => {
-      const { data } = response;
-      setNameOfTheCar(data.nameOfTheCar);
-      setLicensePlate(data.licensePlate);
-      setModelOfTheCar(data.modelOfTheCar);
-      setYearOfTheCar(data.yearOfTheCar);
-      setColor(data.color);
-      setDescription(data.description);
-      setAddedPhotos(data.photos);
+    axios.get('/verify/' + id).then((response) => {
+      if (response.data == true) {
+        axios.get('/garage/' + id).then((response) => {
+          const { data } = response;
+          setNameOfTheCar(data.nameOfTheCar);
+          setLicensePlate(data.licensePlate);
+          setModelOfTheCar(data.modelOfTheCar);
+          setYearOfTheCar(data.yearOfTheCar);
+          setColor(data.color);
+          setDescription(data.description);
+          setAddedPhotos(data.photos);
+          setReady(true)
+        });
+      } else {
+        setReady(true)
+        setRedirect(true)
+      }
     });
-  }, [id]);
+  }, []);
 
   let styleClasses = 'mt-2 ml-1 text-sm md:text-xl';
 
@@ -53,15 +63,7 @@ export default function CarFormPage() {
 
   async function saveCar(ev) {
     ev.preventDefault();
-    const carData = {
-      nameOfTheCar,
-      licensePlate,
-      modelOfTheCar,
-      yearOfTheCar,
-      color,
-      description,
-      addedPhotos,
-    };
+    const carData = { nameOfTheCar, licensePlate, modelOfTheCar, yearOfTheCar, color, description, addedPhotos };
     if (id) {
       // update
       const morecarData = { id, ...carData };
@@ -74,9 +76,9 @@ export default function CarFormPage() {
     setRedirect(true);
   }
 
-  if (redirect) {
-    return <Navigate to="/account/garage" />;
-  }
+  if (!ready) { return (<LoadSpinner />) }
+
+  if (redirect) { return <Navigate to="/account/garage" />; }
 
   function removePhoto(ev, filename) {
     ev.preventDefault();
